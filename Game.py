@@ -31,7 +31,8 @@ while running:
 
         if distance_formula(cursor, piece.rect.center) <= 640 / 16:
             TargetPiece = piece
-
+        if TargetPiece:
+            OriginalPlace = TargetPiece.position
 
     if Mousedown and TargetPiece:
         TargetPiece.drag(cursor)
@@ -45,7 +46,10 @@ while running:
                 if distance_formula(pos1, square.center) < 640 / 16:  # half width of square
                     newspot = square
 
-            TargetPiece.update(newspot)
+            if newspot not in TargetPiece.elgible_moves():
+                TargetPiece.update(OriginalPlace)
+            else:
+                TargetPiece.update(newspot)
             TargetPiece = None
 
     piece.draw(game_window)

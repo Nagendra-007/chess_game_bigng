@@ -25,10 +25,21 @@ class chess_piece(pygame.sprite.Sprite):
         self.rect.center = position.center
 
 
+class king(chess_piece):
+    def __init__(self,image, position, team):
+        chess_piece.__init__(self,image,position,team)
 
+    def elgible_moves(self):
+        moves_if_no_blocls = movable_squares(self.position,square_boxes,[0,pi,pi/2,-pi/2,pi/4,-pi/4,3*pi/4,-3*pi/4])
+        move_list = []
+        dis = distance_formula(square_boxes[1], square_boxes[8])
+        for pos in moves_if_no_blocls:
+            if distance_formula(self.position, pos)<= dis:
+                move_list.append(pos)
+        return move_list
 
 drawboard()
 # This function is called to initialise the following chess pieces with in the square boxes defined in the function
 
-piece = chess_piece(r"C:\Users\SuresH\Pictures\chess\wking.jpeg", square_boxes[60], 'White')
+piece = king("Media\wking.jpeg", square_boxes[60], 'White')
 

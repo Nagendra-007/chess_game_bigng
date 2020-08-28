@@ -1,5 +1,6 @@
 import pygame
 import math
+from math import pi
 from pygame.locals import QUIT, Rect
 
 # initialising pygame and creating  window
@@ -34,3 +35,13 @@ def distance_formula(pos1, pos2):
     # pos1 and pos2 are tuples of 2 numbers
      return math.sqrt(square(pos2[0] - pos1[0]) + square(pos2[1] - pos1[1]))
 
+def movable_squares(target_pawn_pos,list_of_locations,angle_list):
+    movable_locations = []
+    for location in list_of_locations:
+        for angle in angle_list:
+            dx = target_pawn_pos.centerx - location.centerx
+            dy = target_pawn_pos.centery - location.centery
+            test_angle = math.atan2(-dy, dx)
+            if test_angle == angle:
+                movable_locations.append(location)
+    return movable_locations
